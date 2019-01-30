@@ -1,0 +1,53 @@
+@font-face {
+  font-family:din;
+  src: url('../font/din_30640_neuzeit_grotesk_lt_light-webfont.ttf'),
+    url('../font/din_30640_neuzeit_grotesk_lt_light-webfont.woff'),
+    url('../font/din_30640_neuzeit_grotesk_lt_light-webfont.woff2'),
+    url('../font/DIN_30640_Neuzeit_Grotesk_LT_Light.ttf');
+}
+
+@import './common/font.styl'
+@import './common/reset.styl'
+@import './util.styl'
+
+  
+font-6(10px, 12px, 13px, 14px, 16px, 18px, 20px)
+
+body
+  color: rgb(86,86,86)
+  text-shadow: 0 0 1px rgba(86,86,86,0.3)
+  max-width 1920px
+  margin: auto
+a
+  color: rgb(86,86,86)
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+  -webkit-user-select: none
+  -moz-user-focus: none
+  -moz-user-select: none
+
+.page-enter-active, .page-leave-active 
+  transition: opacity 3s;
+
+.page-enter, .page-leave-active 
+  opacity: 0;
+
+.nuxt-progress
+  background-color: lightgreen
+
+/* 设置滚动条的样式 */
+* ::-webkit-scrollbar 
+  width:5px;
+
+/* 滚动槽 */
+* ::-webkit-scrollbar-track 
+  -webkit-box-shadow:inset006pxrgba(0,0,0,0.1);
+  border-radius:10px;
+
+/* 滚动条滑块 */
+* ::-webkit-scrollbar-thumb 
+  border-radius:10px;
+  background:rgba(255,0,0,0.1);
+  -webkit-box-shadow:inset006pxrgba(0,0,0,0.5);
+
+* ::-webkit-scrollbar-thumb:window-inactive 
+  background:rgba(255,0,0,0.4);
