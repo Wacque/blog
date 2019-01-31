@@ -1,20 +1,21 @@
 const  mysql = require('mysql');
 const connection = mysql.createConnection({
-    host     : '127.0.0.1',
+    host     : 'localhost',
     user     : 'root',
     password : 'root',
-    database : 'album'
+    database : 'blog'
 });
-
-exports.insert = async (data) => {
-    connection.connect()
-
+connection.connect()
+exports.insert =  (data, cb) => {
     const keys = Object.keys(data).join(',')
-    const values = Object.values(data).join(',')
-    const addsql = `INSERT INTO imgs(${keys}) VALUES(${values})`;
-    const result = await connection.query(addsql)
+    const values = Object.values(data).map(item => `'${item}'`).join(',')
+    const addsql = `INSERT INTO passages(${keys}) VALUES(${values})`;
+    const result =  connection.query(addsql, (err, res) => {
+        if(err) {
+            throw err
+        }
+        
+        typeof cb === 'function' && cb(res.insertId)
+    })
     return result
-
-    connection.end()
 }
-

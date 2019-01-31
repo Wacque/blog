@@ -1,26 +1,31 @@
-const dbPath = 'mongodb://localhost:27017/'
-const dbName = 'blog'
-const collection = 'passages'
-const MongoClient = require("mongodb").MongoClient
+let _dbPath = 'mongodb://localhost:27017/'
+let _dbName = 'blog'
+let _collection = 'passages'
+let _MongoClient = require("mongodb").MongoClient
 
-const insertOne = async (data) => {
+exports.insertOne = (data, cb) => {
+  
   __connectDB( (err, client) => {
-    client.close()
+    
+    var db = client.db(_dbName)
+    var collection = db.collection(_collection)
+    collection.insertOne(data, (err, r) => {
+      if(err) {
+        throw err
+      }
+      typeof cb === 'function' && cb(r.result.ok)
+      client.close()
+    })
   })
-  console.log('hahha')
-  const client = await MongoClient.connect(dbPath, {useNewUrlParser : true})
-  const db = client.db(dbname)
-  const collection = db.collection(collection)
-  const result = await collection.insertOne(data)
 }
 
 function __connectDB(action) {
-  MongoClient.connect(dbPath, {useNewUrlParser : true}, (err,  client) => {
-    test.equal(null, err)
+  
+  _MongoClient.connect(_dbPath, {useNewUrlParser : true}, (err,  client) => {
+    if(err) {
+      throw err
+    }
+    console.log('hahahha')
     action(err, client)
   })
-}
-
-exports.mongoInsert = (data) => {
-    return insertOne(data)
 }
