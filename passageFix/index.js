@@ -30,7 +30,8 @@ for(let i = 0; i < files.length; i ++) {
       author: author,
       create_time: `${now.toLocaleDateString()} ${now.toLocaleTimeString()}` 
     }
-    const mysqlRes = await mysqlo.insert(mysqlData)
+
+    const mysqlRes = mysqlo.insert(mysqlData).then()
 
     // 将数据写到mongodb
     const content = fs.readFileSync(files[i]).toString()
@@ -38,6 +39,6 @@ for(let i = 0; i < files.length; i ++) {
         pId: mysqlRes.id,
         content: content
     }
-    const mongoRes = await mongoo.mongoInsert(mongoData)
+    const mongoRes = mongoo.mongoInsert(mongoData)
   }
 }

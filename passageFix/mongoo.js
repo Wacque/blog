@@ -3,15 +3,17 @@ const dbName = 'blog'
 const collection = 'passages'
 const MongoClient = require("mongodb").MongoClient
 
-function insertOne(data) {
+const insertOne = async (data) => {
   __connectDB( (err, client) => {
-    var db = client.db(dbname)
-    var collection = db.collection(collection)
-    collection.insertOne(data, (err, r) => {
-      client.close()
-      return data
-    })
+    
+    console.log(result)
+    client.close()
   })
+
+  const client = await MongoClient.connect(dbPath, {useNewUrlParser : true})
+  const db = client.db(dbname)
+  const collection = db.collection(collection)
+  const result = await collection.insertOne(data)
 }
 
 function __connectDB(action) {

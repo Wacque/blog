@@ -6,18 +6,14 @@ const connection = mysql.createConnection({
     database : 'album'
 });
 
-exports.insert = (data) => {
+exports.insert = async (data) => {
     connection.connect()
 
     const keys = Object.keys(data).join(',')
     const values = Object.values(data).join(',')
     const addsql = `INSERT INTO imgs(${keys}) VALUES(${values})`;
-    connection.query(addsql, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        console.log(result)
-    })
+    const result = await connection.query(addsql)
+    return result
 
     connection.end()
 }
