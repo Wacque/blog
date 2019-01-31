@@ -5,7 +5,7 @@ let path = require('path');
 
 // filename: name-author.xxx
 
-let files = fs.readdirSync('./')
+let files = fs.readdirSync('./passage')
 
 for(let i = 0; i < files.length; i ++) {
   let thisFilePath = path.join(__dirname, files[i])
