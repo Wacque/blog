@@ -4,11 +4,12 @@ let mysqlo = require('./mysqlo')
 let path = require('path');
 
 // filename: name-author.xxx
-
-let files = fs.readdirSync('../passage')
+const passagePath = '../passage/'
+let files = fs.readdirSync(passagePath)
 
 for(let i = 0; i < files.length; i ++) {
-  let thisFilePath = path.join(__dirname, files[i])
+  let thisFilePath = path.join(__dirname, passagePath + files[i])
+  console.log(thisFilePath)
   let fileStat = fs.statSync(thisFilePath).isDirectory()
   if(! fileStat) { 
     let name = '';
@@ -32,7 +33,7 @@ for(let i = 0; i < files.length; i ++) {
     }
 
     let mysqlRes =  mysqlo.insert(mysqlData, (insertId) => {
-      let content = fs.readFileSync(files[i]).toString()
+      let content = fs.readFileSync(thisFilePath).toString()
       let mongoData = {
           name: name,
           pId: insertId,
