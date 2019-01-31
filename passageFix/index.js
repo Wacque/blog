@@ -33,11 +33,16 @@ for(let i = 0; i < files.length; i ++) {
     }
 
     let mysqlRes =  mysqlo.insert(mysqlData, (insertId) => {
-      let content = fs.readFileSync(thisFilePath).toString()
+      var content = fs.readFileSync(thisFilePath).toString()
+      console.log(content)
+      var bodyReg = /<body.+<\/body>/g;
+      var content = bodyReg.exec(content);
+      console.log(content)
+
       let mongoData = {
           name: name,
           pId: insertId,
-          content: content
+          content: content[0]
       }
       let mongoRes = mongoo.insertOne(mongoData, res => {
         if(i === files.length - 1) {
