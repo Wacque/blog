@@ -7,6 +7,8 @@ const path = require('path');
 
 const files = fs.readdirSync('./')
 
+const fixedPas = 0;
+
 for(let i = 0; i < files.length; i ++) {
   const thisFilePath = path.join(__dirname, files[i])
   const fileStat = fs.statSync(thisFilePath).isDirectory()
@@ -31,14 +33,22 @@ for(let i = 0; i < files.length; i ++) {
       create_time: `${now.toLocaleDateString()} ${now.toLocaleTimeString()}` 
     }
 
-    const mysqlRes = mysqlo.insert(mysqlData).then()
-
-    // 将数据写到mongodb
-    const content = fs.readFileSync(files[i]).toString()
-    const mongoData = {
-        pId: mysqlRes.id,
-        content: content
-    }
-    const mongoRes = mongoo.mongoInsert(mongoData)
+    const mysqlRes =  mysqlo.insert(mysqlData, (insertId) => {
+      const content = fs.readFileSync(files[i]).toString()
+      const mongoData = {
+          name: name,
+          pId: insertId,
+          content: content
+      }
+      const mongoRes = mongoo.insertOne(mongoData, res => {
+        if(res) {
+          fixedPas +=1 
+        }
+        
+        if(fixedPas === files.length) {
+          return
+        }
+      })
+    })
   }
 }
