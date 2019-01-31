@@ -7,7 +7,7 @@ const insertOne = async (data) => {
   __connectDB( (err, client) => {
     client.close()
   })
-
+  console.log('hahha')
   const client = await MongoClient.connect(dbPath, {useNewUrlParser : true})
   const db = client.db(dbname)
   const collection = db.collection(collection)
