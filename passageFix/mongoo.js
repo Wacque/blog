@@ -5,8 +5,6 @@ const MongoClient = require("mongodb").MongoClient
 
 const insertOne = async (data) => {
   __connectDB( (err, client) => {
-    
-    console.log(result)
     client.close()
   })
 
