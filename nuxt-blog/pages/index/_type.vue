@@ -14,15 +14,11 @@ export default {
   components: {
     Articles
   },
-  asyncData ({params}) {
-    if(!!params.type) {
-      return params
-    }else {
-      return {
-        type: '全部文章'
-      }
+  async asyncData({ params, $axios }) {
+    const result = await $axios.$get(`/getArticle?type=${params.type}`)
+    return {
+      type : 'hello'
     }
-    
   }
 }
 </script>

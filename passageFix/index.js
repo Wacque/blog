@@ -34,11 +34,8 @@ for(let i = 0; i < files.length; i ++) {
 
     let mysqlRes =  mysqlo.insert(mysqlData, (insertId) => {
       var content = fs.readFileSync(thisFilePath).toString()
-      console.log(content)
-      var bodyReg = /<body.+<\/body>/g;
+      var bodyReg = /<body .*?>(.*)<\/body>/s;
       var content = bodyReg.exec(content);
-      console.log(content)
-
       let mongoData = {
           name: name,
           pId: insertId,

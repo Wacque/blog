@@ -37,8 +37,8 @@ export default {
   position fixed
   right 0
   bottom 0
-  width 66rem
-  height 50rem
+  width 80rem
+  height 60rem
   background-repeat no-repeat
   background-size contain
 for prop in 1 2 3 4 5 6
