@@ -25,7 +25,6 @@ function __connectDB(action) {
     if(err) {
       throw err
     }
-    console.log('hahahha')
     action(err, client)
   })
 }

@@ -1,17 +1,15 @@
-const fs = require('fs')
-const mongoo = require('./mongoo')
-const mysqlo = require('./mysqlo')
-const path = require('path');
+let fs = require('fs')
+let mongoo = require('./mongoo')
+let mysqlo = require('./mysqlo')
+let path = require('path');
 
 // filename: name-author.xxx
 
-const files = fs.readdirSync('./')
-
-const fixedPas = 0;
+let files = fs.readdirSync('./')
 
 for(let i = 0; i < files.length; i ++) {
-  const thisFilePath = path.join(__dirname, files[i])
-  const fileStat = fs.statSync(thisFilePath).isDirectory()
+  let thisFilePath = path.join(__dirname, files[i])
+  let fileStat = fs.statSync(thisFilePath).isDirectory()
   if(! fileStat) { 
     let name = '';
     let author = '';
@@ -26,27 +24,23 @@ for(let i = 0; i < files.length; i ++) {
     }
 
     // 将数据写入msyql
-    const now = new Date()
-    const mysqlData = {
+    let now = new Date()
+    let mysqlData = {
       name: name,
       author: author,
       create_time: `${now.toLocaleDateString()} ${now.toLocaleTimeString()}` 
     }
 
-    const mysqlRes =  mysqlo.insert(mysqlData, (insertId) => {
-      const content = fs.readFileSync(files[i]).toString()
-      const mongoData = {
+    let mysqlRes =  mysqlo.insert(mysqlData, (insertId) => {
+      let content = fs.readFileSync(files[i]).toString()
+      let mongoData = {
           name: name,
           pId: insertId,
           content: content
       }
-      const mongoRes = mongoo.insertOne(mongoData, res => {
-        if(res) {
-          fixedPas +=1 
-        }
-        
-        if(fixedPas === files.length) {
-          return
+      let mongoRes = mongoo.insertOne(mongoData, res => {
+        if(i === files.length - 1) {
+           process.exit()
         }
       })
     })
