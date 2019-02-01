@@ -9,7 +9,6 @@ let files = fs.readdirSync(passagePath)
 
 for(let i = 0; i < files.length; i ++) {
   let thisFilePath = path.join(__dirname, passagePath + files[i])
-  console.log(thisFilePath)
   let fileStat = fs.statSync(thisFilePath).isDirectory()
   if(! fileStat) { 
     let name = '';

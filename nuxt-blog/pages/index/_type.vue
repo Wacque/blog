@@ -4,7 +4,7 @@
       {{type}}
     </div>
     <div class="article-items">
-        <articles />
+        <articles :articlesData='data'/>
     </div>
   </div>
 </template>
@@ -15,9 +15,16 @@ export default {
     Articles
   },
   async asyncData({ params, $axios }) {
-    const result = await $axios.$get(`/getArticle?type=${params.type}`)
+    let type = ''
+    if(params.type) {
+       type = params.type
+    }else {
+       type = '全部文章'
+    }
+    const result = await $axios.$get(`/getArticle?type=${type == '全部文章' ? '' : type}`)
     return {
-      type : 'hello'
+      type: type,
+      data: result.data.results
     }
   }
 }

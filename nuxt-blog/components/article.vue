@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="article-item" :key='index' v-for='(item,index) in a'>
-      <nuxt-link to="/detail" >
-        <div class="title  font-6-16 fontBold">Youth</div>
+    <div class="article-item" :key='index' v-for='(item,index) in articlesData'>
+      <nuxt-link :to="'/detail/' + item.id" >
+        <div class="title  font-6-16 fontBold">{{item.name}}</div>
         <div class="content">
           <div class="img">
             <img src="../assets/images/logo.jpeg" alt>
@@ -22,9 +22,16 @@
 export default {
   data() {
     return {
-      a: [1, 2, 3, 4, 5]
     };
-  }
+  },
+  props: {
+    articlesData: {
+      type: Array,
+      default: []
+    }
+  },
+  created() {
+  },
 };
 </script>
 <style lang="stylus" scoped>

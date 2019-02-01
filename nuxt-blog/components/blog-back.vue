@@ -43,7 +43,7 @@ export default {
   background-size contain
 for prop in 1 2 3 4 5 6
   .back-item-{prop}
-    opacity 0.8
+    opacity 0.5
     transition all 1s
     background-image url("../assets/images/bg-" + prop + ".png" )
     

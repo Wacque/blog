@@ -1,11 +1,7 @@
 <template>
   <div class="" id="detail">
     <back style="opacity: 0.2"/>
-    <div class="title">
-    </div>
-    <div  class="content font-6-14">
-      <div class="bin" v-html="html"></div>
-    </div>
+    <nuxt/>
   </div>
 </template>
 <script>
@@ -14,12 +10,10 @@ export default {
   components: {
     Back
   },
-  async asyncData({ $axios }) {
+  async asyncData({ params, $axios }) {
     const result = await $axios.$get('/getdetail')
-    // const html = marked(ip.html);
     const html = result.html
     return {html}
-    // const html = marked(ip.html);
    
   }
 }
