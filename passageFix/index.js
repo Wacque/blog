@@ -6,8 +6,14 @@ let path = require('path');
 // filename: name-author.xxx
 const passagePath = '../passage/'
 let files = fs.readdirSync(passagePath)
-
 for(let i = 0; i < files.length; i ++) {
+  if(files[i].indexOf('.html') < 0) {
+    continue
+  }
+
+
+
+  console.log(files[i])
   let thisFilePath = path.join(__dirname, passagePath + files[i])
   let fileStat = fs.statSync(thisFilePath).isDirectory()
   if(! fileStat) { 
@@ -30,14 +36,13 @@ for(let i = 0; i < files.length; i ++) {
       author: author,
       create_time: `${now.toLocaleDateString()} ${now.toLocaleTimeString()}` 
     }
-
     let mysqlRes =  mysqlo.insert(mysqlData, (insertId) => {
       var content = fs.readFileSync(thisFilePath).toString()
       var bodyReg = /<body .*?>(.*)<\/body>/s;
       var content = bodyReg.exec(content);
       let mongoData = {
           name: name,
-          pId: insertId,
+          pid: insertId,
           content: content[0]
       }
       let mongoRes = mongoo.insertOne(mongoData, res => {

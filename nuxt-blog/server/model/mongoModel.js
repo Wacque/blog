@@ -4,14 +4,16 @@ const url = 'mongodb://localhost:27017/'
 const dbname = 'blog'
 
 // 查找
-exports.mongoFind = (data, callback) => {
+exports.mongoFind = (data, cb) => {
   __connectDB((err, client) => {
     var db = client.db(dbname)
-    var collection = db.collection(_collection)
     console.log(data)
+    var collection = db.collection(_collection)
     collection.find(data).toArray((err, doc) => {
-      console.log(doc)
-      callback(err, doc)
+      if(err) {
+        throw err
+      }
+      typeof cb === 'function' && cb(err, doc)
       client.close()
     })
   })

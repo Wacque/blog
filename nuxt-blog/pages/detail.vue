@@ -9,12 +9,6 @@ import Back from '~/components/blog-back.vue'
 export default {
   components: {
     Back
-  },
-  async asyncData({ params, $axios }) {
-    const result = await $axios.$get('/getdetail')
-    const html = result.html
-    return {html}
-   
   }
 }
 </script>

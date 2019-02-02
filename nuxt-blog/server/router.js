@@ -4,10 +4,8 @@ const mysqlAction = require('./model/mysqlModel')
 const { defaultData }  = require('./utils')
 
 exports.articleDetail = (req, res, next) => {
-    // mongo
-    // console.log(req.query.id)
-     mongoAction.mongoFind({pId: req.query.id}, (res, err) => {
-      //  console.log(res)
+     mongoAction.mongoFind({pid: Number(req.query.id) }, (err, result) => {
+      res.json(new defaultData(0, result, 0, 'sucess'))
      })
 }
 

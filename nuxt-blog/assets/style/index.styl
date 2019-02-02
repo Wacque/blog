@@ -25,6 +25,17 @@ a
   -moz-user-focus: none
   -moz-user-select: none
 
+.one-px-bottom
+  position relative
+  &::after
+    display block
+    content ''
+    width 100%
+    border-bottom 1px solid black
+    position relative
+    left 0
+    bottom 0
+
 .page-enter-active, .page-leave-active 
   transition: opacity 3s;
 
