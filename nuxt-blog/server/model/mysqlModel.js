@@ -11,9 +11,14 @@ const connection = mysql.createConnection({
 });
 
 connection.connect()
+console.log(connection)
 const promiseFix = (sql, params = []) => {
   return new Promise((resolve, reject) => {
     connection.query(sql, params, (err, res) => {
+      if(err) {
+        console.log(err)
+        return
+      }
         resolve(res)
         reject(err)
     })
