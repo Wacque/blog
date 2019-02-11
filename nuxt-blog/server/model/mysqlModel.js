@@ -39,8 +39,6 @@ exports.getArticle = async function (cate_name) {
     idRes = await mysqlQuery(daoCate.queryByCateName, stringParam([cate_name]))
   }
   
-  console.log(idRes)
-
   // 没有该分类查询全部
   let passageRes
   if(!idRes) {

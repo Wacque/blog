@@ -16,7 +16,6 @@ export default {
   },
   async asyncData({ params, $axios }) {
     const result = await $axios.$get("/getdetail?id=" + params.id);
-    console.log(result.data.results)
     const detailData = result.data.results[0];
     return { detailData };
   }

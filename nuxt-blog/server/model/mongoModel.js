@@ -7,7 +7,6 @@ const dbname = 'blog'
 exports.mongoFind = (data, cb) => {
   __connectDB((err, client) => {
     var db = client.db(dbname)
-    console.log(data)
     var collection = db.collection(_collection)
     collection.find(data).toArray((err, doc) => {
       if(err) {
