@@ -4,10 +4,10 @@ const daoCate = require('../DAOs/cate')
 const daoImgs = require('../DAOs/imgs')
 
 const connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'blog'
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database : 'blog'
 });
 
 connection.connect()

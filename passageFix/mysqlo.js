@@ -14,7 +14,6 @@ exports.insert =  (data, cb) => {
         if(err) {
             throw err
         }
-        
         typeof cb === 'function' && cb(res.insertId)
     })
     return result
