@@ -21,12 +21,10 @@ export default {
     }else {
        type = '全部文章'
     }
-    console.log(type)
-    //const result = await $axios.$get(`/getArticle?type=${type == '全部文章' ? '' : type}`)
+    const result = await $axios.$get(`/getArticle?type=${type == '全部文章' ? '' : type}`)
     return {
       type: type,
-      data: []
-      // result.data.results
+      data: result.data.results
     }
   }
 }

@@ -5,7 +5,8 @@ const { defaultData }  = require('./utils')
 
 exports.articleDetail = (req, res, next) => {
      mongoAction.mongoFind({pid: Number(req.query.id) }, (err, result) => {
-      res.json(new defaultData(0, result, 0, 'sucess'))
+       console.log(new defaultData(0, result, 0, 'sucess'))
+        res.json(new defaultData(0, result, 0, 'sucess'))
      })
 }
 
