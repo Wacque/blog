@@ -10,10 +10,7 @@ for(let i = 0; i < files.length; i ++) {
   if(files[i].indexOf('.html') < 0) {
     continue
   }
-
-
-
-  console.log(files[i])
+  
   let thisFilePath = path.join(__dirname, passagePath + files[i])
   let fileStat = fs.statSync(thisFilePath).isDirectory()
   if(! fileStat) { 
