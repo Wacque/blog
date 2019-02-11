@@ -11,7 +11,6 @@ const connection = mysql.createConnection({
 });
 
 connection.connect()
-console.log(connection)
 const promiseFix = (sql, params = []) => {
   return new Promise((resolve, reject) => {
     connection.query(sql, params, (err, res) => {
@@ -40,9 +39,6 @@ const mysqlQuery = async (sql, params) => {
 // 根据分类获取文章
 exports.getArticle = async function (cate_name) {
   let idRes = null
-  console.log('000000')
-  console.log(daoCate.queryByCateName)
-  console.log(stringParam([cate_name]))
   if(cate_name !== '') {
     idRes = await mysqlQuery(daoCate.queryByCateName, stringParam([cate_name]))
   }

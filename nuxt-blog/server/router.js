@@ -10,6 +10,7 @@ exports.articleDetail = (req, res, next) => {
 }
 
 exports.getArticle = async (req, res, next) => {
+  console.log(req.query.type)
   const result = await mysqlAction.getArticle(req.query.type);
   res.json(new defaultData(0, result, 0, 'sucess'))
 }
