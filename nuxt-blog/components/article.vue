@@ -40,9 +40,11 @@ export default {
 </script>
 <style lang="stylus" scoped>
 .article-item {
+  width 100%
   max-width: 700px;
   margin-top: 1.35rem;
   margin-bottom: 3rem;
+  
 
   .title {
     padding-bottom: 1.5rem;

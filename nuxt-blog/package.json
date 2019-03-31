@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "cross-env BASE_URL=http://localhost:8881/index NODE_ENV=development nodemon server/index.js --watch server",
-    "build": "nuxt build",
-    "start": "cross-env BASE_URL=https://api.wuacque.cn/index NODE_ENV=production pm2 start server/index.js --name=blog",
+    "build": "cross-env BASE_URL=https://api.wuacque.cn/index nuxt build",
+    "start": "NODE_ENV=production pm2 restart blog",
     "generate": "nuxt generate"
   },
   "dependencies": {

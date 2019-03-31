@@ -34,6 +34,8 @@ export default {
 }
 </script>
 <style lang="stylus">
+  .article-items
+    width 100%
   .type
     height 70px
     width 100%

@@ -27,8 +27,10 @@ export default {
   min-height 100vh
   width 100%
   .main
-    flex 1
-    padding 0 0 2.32rem 2.32rem
+    width calc(100% - 100px)
+    position relative
+    left 100px
+    padding 0 0.5rem 2.32rem 2.32rem
     box-sizing border-box
     height 100vh
     overflow-y scroll

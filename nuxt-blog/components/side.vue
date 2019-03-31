@@ -47,6 +47,9 @@ export default {
   height 100vh
   letter-spacing 1.5px
   font-family din !important
+  position fixed
+  top 0
+  left 0
   .content
     ul
       margin-bottom 3rem
