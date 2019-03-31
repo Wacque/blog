@@ -4,7 +4,7 @@
       {{type}}
     </div>
     <div v-if="type == 'About Life'" class="photos">
-      <photo-item :imgsData='data'/>
+      <photo-item />
     </div>
     <div v-else class="article-items">
         <articles :articlesData='data'/>
@@ -25,11 +25,19 @@ export default {
     if(params.type) {
        type = params.type
     }
-    const result = await axios.get(`/articles/get_article_list?type=${type}`)
-    return {
-      type: type,
-      data: result.data.data.results
+
+    if(type !== 'About Life') {
+      const result = await axios.get(`/articles/get_article_list?type=${type}`)
+      return {
+        type: type,
+        data: result.data.data.results
+      }
+    } else {
+      return {
+        type: type,
+      }
     }
+    
   }
 }
 </script>
