@@ -43,8 +43,7 @@ export default {
 </script>
 <style lang="stylus">
 #side 
-  flex 0 0 100px
-  height 100vh
+  width 100px
   letter-spacing 1.5px
   font-family din !important
   position fixed

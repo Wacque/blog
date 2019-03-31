@@ -19,7 +19,7 @@ export default {
   max-width 640px
   margin auto
   background rgba(233,233,233,0.1)
-  min-height 100vh
+  // min-height 100vh
   .content
     font-size 1.7rem
     // font-style italic
