@@ -22,7 +22,7 @@ export default {
   min-height 100vh
   .content
     font-size 1.7rem
-    font-style italic
+    // font-style italic
   img
     display block
     width 100%

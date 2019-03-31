@@ -2,7 +2,6 @@ const express = require('express')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
-const router = require('./router')
 
 
 
@@ -37,5 +36,3 @@ async function start() {
 }
 start()
 
-app.get('/getarticle', router.getArticle)
-app.get('/getdetail', router.articleDetail)

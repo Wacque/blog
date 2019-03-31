@@ -1,5 +1,6 @@
 const pkg = require('./package')
-
+console.log('-------')
+console.log(process.env.BASE_URL)
 
 module.exports = {
   mode: 'universal',
@@ -38,6 +39,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/lazy-loader.js'
   ],
 
   /*
@@ -52,6 +54,10 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+  },
+
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
 
   /*
