@@ -1,7 +1,5 @@
 import Vue from 'vue'
 
-const noopData = () => ({})
-
 // window.{{globals.loadedCallback}} hook
 // Useful for jsdom testing or plugins (https://github.com/tmpvar/jsdom#dealing-with-asynchronous-script-loading)
 if (process.client) {
@@ -24,12 +22,17 @@ export function interopDefault(promise) {
 }
 
 export function applyAsyncData(Component, asyncData) {
-  const ComponentData = Component.options.data || noopData
-  // Prevent calling this method for each request on SSR context
-  if (!asyncData && Component.options.hasAsyncData) {
+  if (
+    // For SSR, we once all this function without second param to just apply asyncData
+    // Prevent doing this for each SSR request
+    !asyncData && Component.options.__hasNuxtData
+  ) {
     return
   }
-  Component.options.hasAsyncData = true
+
+  const ComponentData = Component.options._originDataFn || Component.options.data || function () { return {} }
+  Component.options._originDataFn = ComponentData
+
   Component.options.data = function () {
     const data = ComponentData.call(this)
     if (this.$ssrContext) {
@@ -37,6 +40,9 @@ export function applyAsyncData(Component, asyncData) {
     }
     return { ...data, ...asyncData }
   }
+
+  Component.options.__hasNuxtData = true
+
   if (Component._Ctor && Component._Ctor.options) {
     Component._Ctor.options.data = Component.options.data
   }
@@ -106,6 +112,9 @@ export function resolveRouteComponents(route) {
 }
 
 export async function getRouteData(route) {
+  if (!route) {
+    return
+  }
   // Make sure the components are resolved (code-splitting)
   await resolveRouteComponents(route)
   // Send back a copy of route with meta based on Component definition
@@ -132,8 +141,15 @@ export async function setContext(app, context) {
       env: {"baseUrl":"https://api.wuacque.cn/index"}
     }
     // Only set once
-    if (context.req) app.context.req = context.req
-    if (context.res) app.context.res = context.res
+    if (context.req) {
+      app.context.req = context.req
+    }
+    if (context.res) {
+      app.context.res = context.res
+    }
+    if (context.ssrContext) {
+      app.context.ssrContext = context.ssrContext
+    }
     app.context.redirect = (status, path, query) => {
       if (!status) {
         return
@@ -148,21 +164,21 @@ export async function setContext(app, context) {
         status = 302
       }
       if (pathType === 'object') {
-        path = app.router.resolve(path).href
+        path = app.router.resolve(path).route.fullPath
       }
       // "/absolute/route", "./relative/route" or "../relative/route"
       if (/(^[.]{1,2}\/)|(^\/(?!\/))/.test(path)) {
         app.context.next({
-          path: path,
-          query: query,
-          status: status
+          path,
+          query,
+          status
         })
       } else {
         path = formatUrl(path, query)
         if (process.server) {
           app.context.next({
-            path: path,
-            status: status
+            path,
+            status
           })
         }
         if (process.client) {
@@ -181,19 +197,27 @@ export async function setContext(app, context) {
       app.context.nuxtState = window.__NUXT__
     }
   }
+
   // Dynamic keys
+  const [currentRouteData, fromRouteData] = await Promise.all([
+    getRouteData(context.route),
+    getRouteData(context.from)
+  ])
+
+  if (context.route) {
+    app.context.route = currentRouteData
+  }
+
+  if (context.from) {
+    app.context.from = fromRouteData
+  }
+
   app.context.next = context.next
   app.context._redirected = false
   app.context._errored = false
-  app.context.isHMR = !!context.isHMR
-  if (context.route) {
-    app.context.route = await getRouteData(context.route)
-  }
+  app.context.isHMR = Boolean(context.isHMR)
   app.context.params = app.context.route.params || {}
   app.context.query = app.context.route.query || {}
-  if (context.from) {
-    app.context.from = await getRouteData(context.from)
-  }
 }
 
 export function middlewareSeries(promises, appContext) {
@@ -230,14 +254,14 @@ export function promisify(fn, context) {
 
 // Imported from vue-router
 export function getLocation(base, mode) {
-  let path = window.location.pathname
+  let path = decodeURI(window.location.pathname)
   if (mode === 'hash') {
     return window.location.hash.replace(/^#\//, '')
   }
   if (base && path.indexOf(base) === 0) {
     path = path.slice(base.length)
   }
-  return decodeURI(path || '/') + window.location.search + window.location.hash
+  return (path || '/') + window.location.search + window.location.hash
 }
 
 export function urlJoin() {
@@ -281,7 +305,7 @@ export function normalizeError(err) {
   }
   return {
     ...err,
-    message: message,
+    message,
     statusCode: (err.statusCode || err.status || (err.response && err.response.status) || 500)
   }
 }
@@ -355,11 +379,11 @@ function parse(str, options) {
     tokens.push({
       name: name || key++,
       prefix: prefix || '',
-      delimiter: delimiter,
-      optional: optional,
-      repeat: repeat,
-      partial: partial,
-      asterisk: !!asterisk,
+      delimiter,
+      optional,
+      repeat,
+      partial,
+      asterisk: Boolean(asterisk),
       pattern: pattern ? escapeGroup(pattern) : (asterisk ? '.*' : '[^' + escapeString(delimiter) + ']+?')
     })
   }
@@ -529,8 +553,7 @@ function formatUrl(url, query) {
   let hash
   parts = path.split('#')
   if (parts.length === 2) {
-    path = parts[0]
-    hash = parts[1]
+    [path, hash] = parts
   }
 
   result += path ? '/' + path : ''

@@ -5,7 +5,7 @@
   "author": "wu rengui",
   "private": true,
   "scripts": {
-    "dev": "cross-env BASE_URL=http://localhost:8881/index NODE_ENV=development nodemon server/index.js --watch server",
+    "dev": "cross-env BASE_URL=https://api.wuacque.cn/index NODE_ENV=development nodemon server/index.js --watch server",
     "build": "cross-env BASE_URL=https://api.wuacque.cn/index nuxt build",
     "start": "NODE_ENV=production pm2 restart blog",
     "generate": "nuxt generate"
@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "axios": "^0.18.0",
+    "babel-runtime": "^6.26.0",
     "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "marked": "^0.6.0",
@@ -21,6 +22,7 @@
     "vue-lazyload": "^1.2.6"
   },
   "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "nodemon": "^1.18.9",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"

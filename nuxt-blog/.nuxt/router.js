@@ -2,15 +2,31 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+const _aed6322a = () => interopDefault(import('../pages/admin/index.vue' /* webpackChunkName: "pages/admin/index" */))
 const _551ee288 = () => interopDefault(import('../pages/detail.vue' /* webpackChunkName: "pages/detail" */))
 const _bdcaa79a = () => interopDefault(import('../pages/detail/_id.vue' /* webpackChunkName: "pages/detail/_id" */))
+const _239e3ccf = () => interopDefault(import('../pages/admin/editor/_id.vue' /* webpackChunkName: "pages/admin/editor/_id" */))
 const _37a37a6b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 const _b2432f16 = () => interopDefault(import('../pages/index/_type.vue' /* webpackChunkName: "pages/index/_type" */))
 
 Vue.use(Router)
 
 if (process.client) {
-  window.history.scrollRestoration = 'manual'
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'
+
+    // reset scrollRestoration to auto when leaving page, allowing page reload
+    // and back-navigation from other pages to use the browser to restore the
+    // scrolling position.
+    window.addEventListener('beforeunload', () => {
+      window.history.scrollRestoration = 'auto'
+    })
+
+    // Setting scrollRestoration to manual again when returning to this page.
+    window.addEventListener('load', () => {
+      window.history.scrollRestoration = 'manual'
+    })
+  }
 }
 const scrollBehavior = function (to, from, savedPosition) {
   // if the returned position is falsy or an empty object,
@@ -62,12 +78,16 @@ const scrollBehavior = function (to, from, savedPosition) {
 export function createRouter() {
   return new Router({
     mode: 'history',
-    base: '/',
+    base: decodeURI('/'),
     linkActiveClass: 'nuxt-link-active',
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,
 
     routes: [{
+      path: "/admin",
+      component: _aed6322a,
+      name: "admin"
+    }, {
       path: "/detail",
       component: _551ee288,
       name: "detail",
@@ -76,6 +96,10 @@ export function createRouter() {
         component: _bdcaa79a,
         name: "detail-id"
       }]
+    }, {
+      path: "/admin/editor/:id?",
+      component: _239e3ccf,
+      name: "admin-editor-id"
     }, {
       path: "/",
       component: _37a37a6b,

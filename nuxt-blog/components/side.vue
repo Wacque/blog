@@ -28,7 +28,7 @@ export default {
         content: {
           sheetOne: [
             {title: '全部文章', to: '/'}, 
-            {title: 'About Life', to: '/About Life'}
+            // {title: 'admin', to: '/admin'}
           ] ,
           sheetTwo: [
             {title: 'Css', to: '/Css'}, 
