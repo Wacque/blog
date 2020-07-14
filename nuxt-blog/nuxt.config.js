@@ -15,6 +15,7 @@ module.exports = {
     },
     meta: [
       { charset: 'utf-8' },
+
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
@@ -54,6 +55,19 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: true
+  },
+
+  proxy: {
+    "/proxy": {
+      target: process.env.BASE_URL || 'https://api.wuacque.cn/index',
+      pathRewrite: { "^/proxy/": "/" },
+      changeOrigin: false,
+      logLevel: "info",
+      onProxyReq() {
+        console.log('go proxy')
+      }
+    },
   },
 
   env: {
@@ -68,7 +82,7 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      
+
     }
   }
 }

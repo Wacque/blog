@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
-import '../assets/style/index.styl'
+import '..\\assets\\style\\index.styl'
 
-import _2d21d098 from '../layouts/blog.vue'
-import _6f6c098b from '../layouts/default.vue'
+import _2d21d098 from '..\\layouts\\blog.vue'
+import _6f6c098b from '..\\layouts\\default.vue'
 
 const layouts = { "_blog": _2d21d098,"_default": _6f6c098b }
 
@@ -40,7 +40,10 @@ export default {
       domProps: {
         id: '__nuxt'
       }
-    }, [loadingEl, transitionEl])
+    }, [
+      loadingEl,
+      transitionEl
+    ])
   },
   data: () => ({
     isOnline: true,
@@ -99,6 +102,8 @@ export default {
     },
 
     setLayout(layout) {
+      if(layout && typeof layout !== 'string') throw new Error('[nuxt] Avoid using non-string value as layout property.')
+
       if (!layout || !layouts['_' + layout]) {
         layout = 'default'
       }

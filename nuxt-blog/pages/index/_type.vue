@@ -21,23 +21,26 @@ export default {
     PhotoItem
   },
   async asyncData({ params, $axios }) {
-    let type = ''
-    if(params.type) {
-       type = params.type
-    }
+    const cates = await $axios('/index/category/get_cate')
+    console.log(cates)
 
-    if(type !== 'About Life') {
-      const result = await axios.get(`/articles/get_article_list?type=${type}`)
-      return {
-        type: type,
-        data: result.data.data.results
-      }
-    } else {
-      return {
-        type: type,
-      }
-    }
-    
+    // let type = ''
+    // if(params.type) {
+    //    type = params.type
+    // }
+    //
+    // if(type !== 'About Life') {
+    //   const result = await axios.get(`/index/articles/get_article_list?type=${type}`)
+    //   return {
+    //     type: type,
+    //     data: result.data.data.results
+    //   }
+    // } else {
+    //   return {
+    //     type: type,
+    //   }
+    // }
+
   }
 }
 </script>

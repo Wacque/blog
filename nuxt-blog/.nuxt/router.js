@@ -2,31 +2,17 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _aed6322a = () => interopDefault(import('../pages/admin/index.vue' /* webpackChunkName: "pages/admin/index" */))
-const _551ee288 = () => interopDefault(import('../pages/detail.vue' /* webpackChunkName: "pages/detail" */))
-const _bdcaa79a = () => interopDefault(import('../pages/detail/_id.vue' /* webpackChunkName: "pages/detail/_id" */))
-const _239e3ccf = () => interopDefault(import('../pages/admin/editor/_id.vue' /* webpackChunkName: "pages/admin/editor/_id" */))
-const _37a37a6b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
-const _b2432f16 = () => interopDefault(import('../pages/index/_type.vue' /* webpackChunkName: "pages/index/_type" */))
+const _5bbc6f0a = () => interopDefault(import('..\\pages\\admin\\index.vue' /* webpackChunkName: "pages_admin_index" */))
+const _096806a9 = () => interopDefault(import('..\\pages\\detail.vue' /* webpackChunkName: "pages_detail" */))
+const _e5c36b3e = () => interopDefault(import('..\\pages\\detail\\_id.vue' /* webpackChunkName: "pages_detail__id" */))
+const _0f10fa56 = () => interopDefault(import('..\\pages\\admin\\editor\\_id.vue' /* webpackChunkName: "pages_admin_editor__id" */))
+const _7f84ce2a = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _109246df = () => interopDefault(import('..\\pages\\index\\_type.vue' /* webpackChunkName: "pages_index__type" */))
 
 Vue.use(Router)
 
 if (process.client) {
-  if ('scrollRestoration' in window.history) {
-    window.history.scrollRestoration = 'manual'
-
-    // reset scrollRestoration to auto when leaving page, allowing page reload
-    // and back-navigation from other pages to use the browser to restore the
-    // scrolling position.
-    window.addEventListener('beforeunload', () => {
-      window.history.scrollRestoration = 'auto'
-    })
-
-    // Setting scrollRestoration to manual again when returning to this page.
-    window.addEventListener('load', () => {
-      window.history.scrollRestoration = 'manual'
-    })
-  }
+  window.history.scrollRestoration = 'manual'
 }
 const scrollBehavior = function (to, from, savedPosition) {
   // if the returned position is falsy or an empty object,
@@ -78,35 +64,35 @@ const scrollBehavior = function (to, from, savedPosition) {
 export function createRouter() {
   return new Router({
     mode: 'history',
-    base: decodeURI('/'),
+    base: '/',
     linkActiveClass: 'nuxt-link-active',
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,
 
     routes: [{
       path: "/admin",
-      component: _aed6322a,
+      component: _5bbc6f0a,
       name: "admin"
     }, {
       path: "/detail",
-      component: _551ee288,
+      component: _096806a9,
       name: "detail",
       children: [{
         path: ":id?",
-        component: _bdcaa79a,
+        component: _e5c36b3e,
         name: "detail-id"
       }]
     }, {
       path: "/admin/editor/:id?",
-      component: _239e3ccf,
+      component: _0f10fa56,
       name: "admin-editor-id"
     }, {
       path: "/",
-      component: _37a37a6b,
+      component: _7f84ce2a,
       name: "index",
       children: [{
         path: ":type?",
-        component: _b2432f16,
+        component: _109246df,
         name: "index-type"
       }]
     }],

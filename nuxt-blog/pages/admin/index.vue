@@ -6,7 +6,7 @@
             id: {{item.id}}
           </div>
           <div class="name font-6-16 fontBold">
-            name: {{item.name}}
+            name: {{item.title}}
           </div>
           <div class="create-time font-6-12">
             create time: {{item.create_time}}
@@ -19,7 +19,7 @@
 import axios from '~/plugins/axios'
 export default {
   async asyncData({ params, $axios }) {
-    const result = await axios.get(`/articles/get_article_list?type=`)
+    const result = await axios.get(`/index/articles/get_article_list?type=`)
     console.log(result.data.data.results)
     return {
       data: result.data.data.results

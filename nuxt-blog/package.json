@@ -5,7 +5,7 @@
   "author": "wu rengui",
   "private": true,
   "scripts": {
-    "dev": "cross-env BASE_URL=https://api.wuacque.cn/index NODE_ENV=development nodemon server/index.js --watch server",
+    "dev": "cross-env BASE_URL=http://localhost NODE_ENV=development nodemon server/index.js --watch server",
     "build": "cross-env BASE_URL=https://api.wuacque.cn/index nuxt build",
     "start": "NODE_ENV=production pm2 restart blog",
     "generate": "nuxt generate"
