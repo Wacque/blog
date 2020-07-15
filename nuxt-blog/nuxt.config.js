@@ -55,6 +55,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: process.env.BASE_URL || 'https://api.wuacque.cn/index',
     proxy: true
   },
 

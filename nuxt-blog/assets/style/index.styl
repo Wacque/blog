@@ -10,13 +10,12 @@
 @import './common/reset.styl'
 @import './util.styl'
 
-  
+
 font-6(10px, 12px, 13px, 14px, 16px, 18px, 20px)
 
 body
   color: rgb(86,86,86)
   text-shadow: 0 0 1px rgba(86,86,86,0.3)
-  max-width 800px
   margin: auto
   position:  relative
 a
@@ -37,32 +36,32 @@ a
     left 0
     bottom 0
 
-.page-enter-active, .page-leave-active 
+.page-enter-active, .page-leave-active
   transition: opacity 0.1s;
 
-.page-enter, .page-leave-active 
+.page-enter, .page-leave-active
   opacity: 0;
 
 .nuxt-progress
   background-color: lightgreen
 
 /* 设置滚动条的样式 */
-* ::-webkit-scrollbar 
+* ::-webkit-scrollbar
   width:5px;
 
-body ::-webkit-scrollbar-track 
+body ::-webkit-scrollbar-track
   -webkit-box-shadow:inset006pxrgba(0,0,0,0.1);
   border-radius:10px;
 /* 滚动槽 */
-* ::-webkit-scrollbar-track 
+* ::-webkit-scrollbar-track
   -webkit-box-shadow:inset006pxrgba(0,0,0,0.1);
   border-radius:10px;
 
 /* 滚动条滑块 */
-* ::-webkit-scrollbar-thumb 
+* ::-webkit-scrollbar-thumb
   border-radius:10px;
   background:rgba(255,0,0,0.1);
   -webkit-box-shadow:inset006pxrgba(0,0,0,0.5);
 
-* ::-webkit-scrollbar-thumb:window-inactive 
+* ::-webkit-scrollbar-thumb:window-inactive
   background:rgba(255,0,0,0.4);

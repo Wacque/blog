@@ -1,41 +1,56 @@
 <template>
-    <div class="main">
-      <nuxt/>
+  <div class="main">
+    <Side :cates="cates"></Side>
+    <div id="main-content-box">
+      <nuxt-child/>
     </div>
+    <Back></Back>
+  </div>
 </template>
 
 <script>
-export default {
-  layout: 'blog',
-  components: {
-  },
-  head () {
-    return {
-      title: 'wuacque.cn',
-      meta: [
-        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-        { hid: 'description', name: 'description', content: 'wuacque.cn' }
-      ]
+  import Side from '~/components/side.vue'
+  import Back from '~/components/blog-back.vue'
+
+  export default {
+    components: {
+      Side,
+      Back
+    },
+
+    async asyncData({$axios}) {
+      const cates = await $axios('/index/category/get_cate')
+      console.log(cates.data.data.results)
+
+      return {
+        cates: cates.data.data.results
+      }
+    },
+
+    head() {
+      return {
+        title: 'wuacque.cn',
+        meta: [
+          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+          {hid: 'description', name: 'description', content: 'wuacque.cn'}
+        ]
+      }
     }
   }
-}
 </script>
 
 <style lang='stylus'>
-.container 
-  display flex
-  // min-height 100vh
-  width 100%
-  .main
-    width calc(100% - 100px)
-    position relative
-    left 100px
-    padding 0 0.5rem 2.32rem 2.32rem
-    box-sizing border-box
-    // overflow-y scroll
-    // -webkit-overflow-scrolling touch
 
-@media screen and (min-width 640px) 
   .main
-    padding-left 5rem
+    display flex
+    justify-content space-between
+    width 100%
+    #main-content-box
+      flex 1
+      padding 2rem 1.2rem
+      box-sizing border-box
+      height 2000px
+  // overflow-y scroll
+  // -webkit-overflow-scrolling touch
+
 </style>

@@ -3,11 +3,11 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 
 const _5bbc6f0a = () => interopDefault(import('..\\pages\\admin\\index.vue' /* webpackChunkName: "pages_admin_index" */))
-const _096806a9 = () => interopDefault(import('..\\pages\\detail.vue' /* webpackChunkName: "pages_detail" */))
-const _e5c36b3e = () => interopDefault(import('..\\pages\\detail\\_id.vue' /* webpackChunkName: "pages_detail__id" */))
 const _0f10fa56 = () => interopDefault(import('..\\pages\\admin\\editor\\_id.vue' /* webpackChunkName: "pages_admin_editor__id" */))
+const _e5c36b3e = () => interopDefault(import('..\\pages\\detail\\_id.vue' /* webpackChunkName: "pages_detail__id" */))
 const _7f84ce2a = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
-const _109246df = () => interopDefault(import('..\\pages\\index\\_type.vue' /* webpackChunkName: "pages_index__type" */))
+const _ce29367a = () => interopDefault(import('..\\pages\\index\\_type\\index.vue' /* webpackChunkName: "pages_index__type_index" */))
+const _0281bbeb = () => interopDefault(import('..\\pages\\index\\_type\\_id.vue' /* webpackChunkName: "pages_index__type__id" */))
 
 Vue.use(Router)
 
@@ -74,26 +74,25 @@ export function createRouter() {
       component: _5bbc6f0a,
       name: "admin"
     }, {
-      path: "/detail",
-      component: _096806a9,
-      name: "detail",
-      children: [{
-        path: ":id?",
-        component: _e5c36b3e,
-        name: "detail-id"
-      }]
-    }, {
       path: "/admin/editor/:id?",
       component: _0f10fa56,
       name: "admin-editor-id"
+    }, {
+      path: "/detail/:id?",
+      component: _e5c36b3e,
+      name: "detail-id"
     }, {
       path: "/",
       component: _7f84ce2a,
       name: "index",
       children: [{
-        path: ":type?",
-        component: _109246df,
+        path: ":type",
+        component: _ce29367a,
         name: "index-type"
+      }, {
+        path: ":type/:id?",
+        component: _0281bbeb,
+        name: "index-type-id"
       }]
     }],
 

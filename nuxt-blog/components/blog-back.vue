@@ -14,17 +14,17 @@ export default {
 }
 </script>
 <style lang="stylus">
-@media screen and (max-width 1920px) 
+@media screen and (max-width 1920px)
   .blog-back
     opacity 0.4
     .back-item-6
       opacity 0
-@media screen and (max-width 767px) 
+@media screen and (max-width 767px)
   .blog-back
     opacity 0.4
     .back-item-4,.back-item-3,.back-item-5
       opacity 0
-@media screen and (max-width 479px) 
+@media screen and (max-width 479px)
   .blog-back
     opacity 0.4
     .back-item-2
@@ -34,7 +34,7 @@ export default {
       height 60rem
 
 .blog-back
-  position relative
+  position fixed
   z-index -1
 .back-item
   position fixed
@@ -49,7 +49,7 @@ for prop in 1 2 3 4 5 6
     opacity 0.5
     transition all 1s
     background-image url("../assets/images/bg-" + prop + ".png" )
-    
+
 
 
 </style>
